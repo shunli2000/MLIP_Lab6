@@ -1,35 +1,34 @@
 pipeline {
     agent any
 
-    stages {
+    stages { 
         stage('Build') {
             steps {
-                sh '''#!/bin/bash
                 echo 'In C or Java, we can compile our program in this step'
                 echo 'In Python, we can build our package here or skip this step'
-                '''
             }
         }
+
         stage('Test') {
             steps {
-                sh '''#!/bin/bash
-                echo 'Test Step: We run testing tool like pytest here'
+                bat '''
+                echo Test Step: We run testing tool like pytest here
 
-                # Initialize conda
+                REM Initialize conda
                 C:\\Users\\shunli\\anaconda3\\Scripts\\activate mlip
 
-                # Run pytest
+                REM Run pytest
                 pytest
 
-                echo 'pytest not runned'
-                exit 1 #comment this line after implementing Jenkinsfile
+                echo pytest did not run
+                exit 1 REM comment this line after implementing Jenkinsfile
                 '''
-
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'In this step, we deploy our porject'
+                echo 'In this step, we deploy our project'
                 echo 'Depending on the context, we may publish the project artifact or upload pickle files'
             }
         }
